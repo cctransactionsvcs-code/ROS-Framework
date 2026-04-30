@@ -1,1 +1,563 @@
-index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Global Systems Studio — The Relocation Operating System™</title>
+  <meta name="description" content="The Relocation Operating System™ — a 7-module governance framework for international relocation. Solo, Family, and Legacy editions available."/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #07101f;
+      --navy2: #0d1a2e;
+      --card: #111f35;
+      --gold: #c9971c;
+      --gold-light: #e0b84a;
+      --white: #ffffff;
+      --muted: #8fa3b8;
+      --border: #1e3050;
+      --radius: 10px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--white); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.65; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,16,31,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo { font-size: 1.15rem; font-weight: 700; color: var(--white); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy); font-weight: 700;
+      padding: 0.55rem 1.4rem; border-radius: 6px; text-decoration: none;
+      font-size: 0.88rem; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); display: block; }
+
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 5% 4rem;
+      background: radial-gradient(ellipse at 50% 0%, #0d2a50 0%, var(--navy) 70%);
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(201,151,28,0.15); border: 1px solid rgba(201,151,28,0.4);
+      color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.4rem 1.1rem; border-radius: 50px; margin-bottom: 1.8rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.15;
+      max-width: 820px; margin-bottom: 1.4rem;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--muted);
+      max-width: 620px; margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy); font-weight: 700;
+      padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none;
+      font-size: 1rem; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+    .btn-secondary {
+      background: transparent; color: var(--white); font-weight: 600;
+      padding: 0.85rem 2rem; border-radius: 8px; text-decoration: none;
+      font-size: 1rem; border: 1px solid var(--border); transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap; justify-content: center;
+    }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--gold); }
+    .stat-label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* SECTION WRAPPER */
+    section { padding: 6rem 5%; }
+    .section-label {
+      display: inline-block; color: var(--gold); font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.8rem;
+    }
+    .section-title { font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800; margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin-bottom: 3rem; }
+    .center { text-align: center; }
+    .center .section-sub { margin-left: auto; margin-right: auto; }
+
+    /* WHAT IS ROS */
+    .what-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .what-text p { color: var(--muted); margin-bottom: 1.2rem; }
+    .what-modules { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .module-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.2rem; transition: border-color 0.2s;
+    }
+    .module-card:hover { border-color: var(--gold); }
+    .module-num { color: var(--gold); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+    .module-name { font-size: 0.9rem; font-weight: 600; }
+
+    /* DESTINATION HUB */
+    .dest-section { background: var(--navy2); }
+    .dest-intro { max-width: 600px; margin: 0 auto 3rem; text-align: center; }
+    .dest-tabs {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .dest-tab {
+      background: var(--card); border: 1px solid var(--border); color: var(--muted);
+      padding: 0.75rem 1.8rem; border-radius: 50px; cursor: pointer;
+      font-size: 0.95rem; font-weight: 600; transition: all 0.2s;
+    }
+    .dest-tab:hover { border-color: var(--gold); color: var(--white); }
+    .dest-tab.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+    .dest-panel { display: none; }
+    .dest-panel.active { display: block; }
+    .dest-panel-inner {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem; max-width: 900px; margin: 0 auto;
+    }
+    .dest-panel h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .dest-panel p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.5rem; }
+    .country-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem;
+    }
+    .country-item {
+      background: var(--navy); border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.75rem 1rem; font-size: 0.88rem; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .country-item:hover { border-color: var(--gold); color: var(--gold); }
+    .country-flag { font-size: 1.2rem; }
+    .dest-note {
+      text-align: center; margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .price-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2rem; transition: border-color 0.2s; position: relative; overflow: hidden;
+    }
+    .price-card:hover { border-color: var(--gold); }
+    .price-card.featured { border-color: var(--gold); }
+    .featured-badge {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      background: var(--gold); color: var(--navy);
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; padding: 0.3rem 0.75rem; border-radius: 50px;
+    }
+    .price-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .price-tier { font-size: 0.8rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .price-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .price-desc { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; min-height: 3.5rem; }
+    .price-amount { font-size: 2.5rem; font-weight: 800; color: var(--gold); }
+    .price-access { color: var(--muted); font-size: 0.82rem; margin-bottom: 0.3rem; }
+    .price-renewal { color: var(--muted); font-size: 0.8rem; margin-bottom: 1.8rem; }
+    .price-features { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .price-features li { font-size: 0.88rem; display: flex; gap: 0.6rem; align-items: flex-start; }
+    .price-features li::before { content: "✦"; color: var(--gold); font-size: 0.7rem; margin-top: 0.25rem; flex-shrink: 0; }
+    .btn-tier {
+      display: block; text-align: center; background: var(--gold); color: var(--navy);
+      font-weight: 700; padding: 0.85rem; border-radius: 8px; text-decoration: none;
+      font-size: 0.95rem; transition: background 0.2s;
+    }
+    .btn-tier:hover { background: var(--gold-light); }
+    .btn-tier-outline {
+      display: block; text-align: center; background: transparent; color: var(--white);
+      font-weight: 600; padding: 0.85rem; border-radius: 8px; text-decoration: none;
+      font-size: 0.95rem; border: 1px solid var(--border); transition: all 0.2s;
+    }
+    .btn-tier-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* WHO IT'S FOR */
+    .who-section { background: var(--navy2); }
+    .tracks-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+    .track-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem;
+      text-align: center; transition: border-color 0.2s;
+    }
+    .track-card:hover { border-color: var(--gold); }
+    .track-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .track-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .track-desc { color: var(--muted); font-size: 0.9rem; }
+
+    /* FAQ */
+    .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .faq-q {
+      width: 100%; background: none; border: none; color: var(--white); text-align: left;
+      padding: 1.2rem 1.5rem; font-size: 0.97rem; font-weight: 600; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .faq-q:hover { color: var(--gold); }
+    .faq-icon { color: var(--gold); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.25s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 1.5rem 1.2rem; color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* AUDIT SECTION */
+    .audit-section {
+      background: linear-gradient(135deg, #0d2040 0%, #07101f 100%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .audit-inner {
+      max-width: 700px; margin: 0 auto; text-align: center;
+    }
+    .audit-inner h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 800; margin-bottom: 1rem; }
+    .audit-inner p { color: var(--muted); margin-bottom: 2rem; font-size: 1.05rem; }
+    .audit-price { font-size: 1.5rem; font-weight: 800; color: var(--gold); margin-bottom: 2rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy2); border-top: 1px solid var(--border);
+      padding: 3rem 5%; text-align: center;
+    }
+    .footer-logo { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--gold); }
+    .footer-tagline { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { color: #3a5070; font-size: 0.8rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .what-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .tracks-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .what-modules { grid-template-columns: 1fr; }
+      .hero-stats { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Global Systems <span>Studio</span></a>
+  <ul class="nav-links">
+    <li><a href="#what">How It Works</a></li>
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="https://calendly.com/cctransactionsvcs/transition-clarity-session" target="_blank" class="nav-cta">Book a Call</a>
+  <div class="hamburger" onclick="document.querySelector('.nav-links').style.display='flex'">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">The Relocation Operating System™</div>
+  <h1>Relocation Is Not About Leaving.<br/>It's About <span>Entering a System.</span></h1>
+  <p>A 7-module governance framework that replaces guesswork with structure — for diaspora returnees and international movers who refuse to leave anything to chance.</p>
+  <div class="hero-btns">
+    <a href="https://stan.store/GlobalSystemsStudio" target="_blank" class="btn-primary">Get the ROS™</a>
+    <a href="https://calendly.com/cctransactionsvcs/transition-clarity-session" target="_blank" class="btn-secondary">Book a Clarity Session</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Modules</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Editions</div></div>
+    <div class="stat"><div class="stat-num">$350</div><div class="stat-label">Risk Audit</div></div>
+    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Years Experience</div></div>
+  </div>
+</section>
+
+<!-- WHAT IS ROS -->
+<section id="what">
+  <div class="what-grid">
+    <div class="what-text">
+      <span class="section-label">What Is the ROS™?</span>
+      <h2 class="section-title">The System That Should Have Always Existed</h2>
+      <p>Most diaspora returnees plan their move the same way — Google, group chats, and guesswork. Then they land, and the surprises start. The attorney had a conflict of interest. The realtor was showing fraudulent listings. The budget didn't account for currency variance.</p>
+      <p>None of that is bad luck. It's the absence of a system.</p>
+      <p>The Relocation Operating System™ is a complete, Notion-based framework that walks you through every phase of your international relocation — step by step, gate by gate. Built by someone living this transition in real time.</p>
+      <a href="https://stan.store/GlobalSystemsStudio" target="_blank" class="btn-primary" style="display:inline-block; margin-top:1.5rem;">Explore the Framework →</a>
+    </div>
+    <div class="what-modules">
+      <div class="module-card"><div class="module-num">Module I</div><div class="module-name">Jurisdiction Selection</div></div>
+      <div class="module-card"><div class="module-num">Module II</div><div class="module-name">Legal Foundations</div></div>
+      <div class="module-card"><div class="module-num">Module III</div><div class="module-name">Financial Infrastructure</div></div>
+      <div class="module-card"><div class="module-num">Module IV</div><div class="module-name">Asset Transition</div></div>
+      <div class="module-card"><div class="module-num">Module V</div><div class="module-name">Physical Relocation</div></div>
+      <div class="module-card"><div class="module-num">Module VI</div><div class="module-name">Arrival Governance</div></div>
+      <div class="module-card" style="grid-column: span 2;"><div class="module-num">Module VII</div><div class="module-name">90-Day Stability Plan</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATION HUB -->
+<section id="destinations" class="dest-section">
+  <div class="dest-intro">
+    <span class="section-label">Destination Hub</span>
+    <h2 class="section-title">Where Are You Relocating?</h2>
+    <p class="section-sub" style="margin:0 auto;">Select your region to explore destination countries supported by the ROS™ framework.</p>
+  </div>
+
+  <div class="dest-tabs">
+    <button class="dest-tab active" onclick="showDest('central')">Central America</button>
+    <button class="dest-tab" onclick="showDest('latin')">Latin America</button>
+    <button class="dest-tab" onclick="showDest('caribbean')">Caribbean</button>
+  </div>
+
+  <!-- CENTRAL AMERICA -->
+  <div class="dest-panel active" id="dest-central">
+    <div class="dest-panel-inner">
+      <h3>🌎 Central America</h3>
+      <p>Seven countries bridging North and South America — known for low cost of living, residency incentives, and growing expat communities.</p>
+      <div class="country-grid">
+        <div class="country-item"><span class="country-flag">🇧🇿</span> Belize</div>
+        <div class="country-item"><span class="country-flag">🇨🇷</span> Costa Rica</div>
+        <div class="country-item"><span class="country-flag">🇸🇻</span> El Salvador</div>
+        <div class="country-item"><span class="country-flag">🇬🇹</span> Guatemala</div>
+        <div class="country-item"><span class="country-flag">🇭🇳</span> Honduras</div>
+        <div class="country-item"><span class="country-flag">🇳🇮</span> Nicaragua</div>
+        <div class="country-item"><span class="country-flag">🇵🇦</span> Panama</div>
+      </div>
+      <p class="dest-note">The ROS™ framework is applied to your specific destination with local legal and financial context layered in.</p>
+    </div>
+  </div>
+
+  <!-- LATIN AMERICA -->
+  <div class="dest-panel" id="dest-latin">
+    <div class="dest-panel-inner">
+      <h3>🌎 Latin America</h3>
+      <p>South America's diverse economies offer a wide range of residency pathways, investment opportunities, and lifestyle options for international movers.</p>
+      <div class="country-grid">
+        <div class="country-item"><span class="country-flag">🇦🇷</span> Argentina</div>
+        <div class="country-item"><span class="country-flag">🇧🇴</span> Bolivia</div>
+        <div class="country-item"><span class="country-flag">🇧🇷</span> Brazil</div>
+        <div class="country-item"><span class="country-flag">🇨🇱</span> Chile</div>
+        <div class="country-item"><span class="country-flag">🇨🇴</span> Colombia</div>
+        <div class="country-item"><span class="country-flag">🇪🇨</span> Ecuador</div>
+        <div class="country-item"><span class="country-flag">🇲🇽</span> Mexico</div>
+        <div class="country-item"><span class="country-flag">🇵🇾</span> Paraguay</div>
+        <div class="country-item"><span class="country-flag">🇵🇪</span> Peru</div>
+        <div class="country-item"><span class="country-flag">🇺🇾</span> Uruguay</div>
+        <div class="country-item"><span class="country-flag">🇻🇪</span> Venezuela</div>
+      </div>
+      <p class="dest-note">The ROS™ framework is applied to your specific destination with local legal and financial context layered in.</p>
+    </div>
+  </div>
+
+  <!-- CARIBBEAN -->
+  <div class="dest-panel" id="dest-caribbean">
+    <div class="dest-panel-inner">
+      <h3>🌴 Caribbean</h3>
+      <p>Home to the world's largest diaspora returnee movement — the Caribbean offers citizenship by investment, territorial tax systems, and deep community roots.</p>
+      <div class="country-grid">
+        <div class="country-item"><span class="country-flag">🇦🇬</span> Antigua & Barbuda</div>
+        <div class="country-item"><span class="country-flag">🇧🇸</span> Bahamas</div>
+        <div class="country-item"><span class="country-flag">🇧🇧</span> Barbados</div>
+        <div class="country-item"><span class="country-flag">🇰🇾</span> Cayman Islands</div>
+        <div class="country-item"><span class="country-flag">🇨🇺</span> Cuba</div>
+        <div class="country-item"><span class="country-flag">🇩🇲</span> Dominica</div>
+        <div class="country-item"><span class="country-flag">🇩🇴</span> Dominican Republic</div>
+        <div class="country-item"><span class="country-flag">🇬🇩</span> Grenada</div>
+        <div class="country-item"><span class="country-flag">🇭🇹</span> Haiti</div>
+        <div class="country-item"><span class="country-flag">🇯🇲</span> Jamaica</div>
+        <div class="country-item"><span class="country-flag">🇵🇷</span> Puerto Rico</div>
+        <div class="country-item"><span class="country-flag">🇰🇳</span> St. Kitts & Nevis</div>
+        <div class="country-item"><span class="country-flag">🇱🇨</span> St. Lucia</div>
+        <div class="country-item"><span class="country-flag">🇻🇨</span> St. Vincent & Grenadines</div>
+        <div class="country-item"><span class="country-flag">🇹🇹</span> Trinidad & Tobago</div>
+      </div>
+      <p class="dest-note">The ROS™ framework is applied to your specific destination with local legal and financial context layered in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="center">
+    <span class="section-label">Pricing</span>
+    <h2 class="section-title">Choose Your Edition</h2>
+    <p class="section-sub">Every tier includes the full 7-module ROS™ framework. Choose the edition that matches your situation.</p>
+  </div>
+  <div class="pricing-grid">
+
+    <!-- SOLO -->
+    <div class="price-card">
+      <div class="price-icon">🗂</div>
+      <div class="price-tier">Solo Edition</div>
+      <div class="price-name">Individual Returnee</div>
+      <div class="price-desc">For solo professionals and individual returnees relocating on their own terms.</div>
+      <div class="price-amount">$597</div>
+      <div class="price-access">6-Month Access</div>
+      <div class="price-renewal">Renewal: $97 every 6 months</div>
+      <ul class="price-features">
+        <li>Full 7-module ROS™ framework</li>
+        <li>Scored jurisdiction selection tool</li>
+        <li>Legal roadmap & standing protocols</li>
+        <li>Variance-based budget builder</li>
+        <li>Attorney & Realtor Verification Protocol</li>
+        <li>90-day arrival governance plan</li>
+      </ul>
+      <a href="https://stan.store/GlobalSystemsStudio" target="_blank" class="btn-tier-outline">Get Solo Edition</a>
+    </div>
+
+    <!-- FAMILY -->
+    <div class="price-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="price-icon">🏡</div>
+      <div class="price-tier">Family Edition</div>
+      <div class="price-name">Couples & Families</div>
+      <div class="price-desc">For couples and families relocating together, with dual decision-maker protocols and family-specific modules.</div>
+      <div class="price-amount">$797</div>
+      <div class="price-access">9-Month Access</div>
+      <div class="price-renewal">Renewal: $147 every 6 months</div>
+      <ul class="price-features">
+        <li>Everything in Solo, plus:</li>
+        <li>Family-exclusive Module IV — dependents, schools, spousal employment</li>
+        <li>Dual Notion access for both partners</li>
+        <li>Dual financial mapping & verification</li>
+        <li>Healthcare navigation for full household</li>
+        <li>Family arrival governance plan</li>
+      </ul>
+      <a href="https://stan.store/GlobalSystemsStudio" target="_blank" class="btn-tier">Get Family Edition</a>
+    </div>
+
+    <!-- LEGACY -->
+    <div class="price-card">
+      <div class="price-icon">🏛️</div>
+      <div class="price-tier">Legacy Edition</div>
+      <div class="price-name">Investors & Capital Deployers</div>
+      <div class="price-desc">For investors moving internationally and deploying capital across borders with full asset protection protocols.</div>
+      <div class="price-amount">$997</div>
+      <div class="price-access">12-Month Access</div>
+      <div class="price-renewal">Renewal: $197 every 6 months</div>
+      <ul class="price-features">
+        <li>Everything in Family, plus:</li>
+        <li>Title & Lien Verification Protocol</li>
+        <li>Builder Due Diligence + Milestone Payment Controls</li>
+        <li>Capital Document Vault</li>
+        <li>Capital Deployment Authorization gates</li>
+        <li>72-Hour Reflection Windows before any commitment</li>
+      </ul>
+      <a href="https://stan.store/GlobalSystemsStudio" target="_blank" class="btn-tier-outline">Get Legacy Edition</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who-section">
+  <div class="center">
+    <span class="section-label">Who It's For</span>
+    <h2 class="section-title">Three Client Tracks</h2>
+    <p class="section-sub">If you're moving internationally on your own terms, you're in the right place.</p>
+  </div>
+  <div class="tracks-grid">
+    <div class="track-card">
+      <div class="track-icon">🧳</div>
+      <div class="track-name">Solo Professionals</div>
+      <div class="track-desc">Relocating independently without a corporate relocation package. You need a system, not a checklist.</div>
+    </div>
+    <div class="track-card">
+      <div class="track-icon">👨‍👩‍👧</div>
+      <div class="track-name">Families</div>
+      <div class="track-desc">Coordinating a multi-person move with dependents, schools, spousal employment, and dual decision-makers.</div>
+    </div>
+    <div class="track-card">
+      <div class="track-icon">💼</div>
+      <div class="track-name">Legacy & Capital Clients</div>
+      <div class="track-desc">Managing wealth, assets, and capital deployment alongside your international transition. Zero exposure tolerance.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK AUDIT CTA -->
+<section class="audit-section">
+  <div class="audit-inner">
+    <span class="section-label">Relocation Risk Audit</span>
+    <h2>Not Sure Where You Stand?<br/>Start Here.</h2>
+    <p>A focused session where we map your relocation goals, timeline, and risk areas. You leave with clarity on your next moves — and exactly what working together looks like.</p>
+    <div class="audit-price">$350 per session</div>
+    <a href="https://calendly.com/cctransactionsvcs/transition-clarity-session" target="_blank" class="btn-primary">Book Your Risk Audit →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="center" style="margin-bottom:3rem;">
+    <span class="section-label">FAQ</span>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What exactly is the Relocation Operating System™? <span class="faq-icon">+</span></button>
+      <div class="faq-a">The ROS™ is a structured governance framework that guides you through every phase of an international move — from decision and planning through legal setup, logistics, and landing. It replaces guesswork with a step-by-step system built for people relocating without a corporate package.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Who is Global Systems Studio for? <span class="faq-icon">+</span></button>
+      <div class="faq-a">GSS serves three client tracks — Solo professionals relocating independently, Families coordinating a multi-person move, and Legacy/Capital clients managing wealth and asset considerations alongside their transition. If you're moving internationally on your own terms, you're in the right place.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How is this different from hiring a relocation agent? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Agents typically handle logistics like housing or shipping. GSS provides governance — the decision architecture and oversight system that keeps your entire transition coordinated, not just the moving parts.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do you only work with people who haven't moved yet? <span class="faq-icon">+</span></button>
+      <div class="faq-a">No. We also work with expats already abroad who need help stabilizing their situation — whether that's legal compliance, financial structure, or simply a system to manage what's already in motion.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What countries does the ROS™ cover? <span class="faq-icon">+</span></button>
+      <div class="faq-a">The ROS™ framework is country-agnostic. We currently support destinations across the Caribbean, Central America, and Latin America, with the right local legal and financial context layered in for your specific destination.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What does a Transition Clarity Session include? <span class="faq-icon">+</span></button>
+      <div class="faq-a">It's a structured intake session where we map your relocation goals, timeline, and risk areas. You leave with clarity on your next moves and a clear picture of what working together looks like. Book at $350 via Calendly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Global Systems <span>Studio</span></div>
+  <div class="footer-tagline">A sub-brand of CC Transaction Services · The Relocation Operating System™</div>
+  <div class="footer-links">
+    <a href="https://stan.store/GlobalSystemsStudio" target="_blank">Stan Store</a>
+    <a href="https://calendly.com/cctransactionsvcs/transition-clarity-session" target="_blank">Book a Call</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#destinations">Destinations</a>
+  </div>
+  <div class="footer-copy">© 2026 Global Systems Studio · CC Transaction Services · All rights reserved.</div>
+</footer>
+
+<script>
+  function showDest(region) {
+    document.querySelectorAll('.dest-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.dest-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('dest-' + region).classList.add('active');
+    event.target.classList.add('active');
+  }
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
